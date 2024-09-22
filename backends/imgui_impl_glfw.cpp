@@ -828,6 +828,7 @@ void ImGui_ImplGlfw_NewFrame()
     // Setup display size (every frame to accommodate for window resizing)
     int w, h;
     int display_w, display_h;
+    ImGui_ImplGlfw_Data* bd = ImGui_ImplGlfw_GetBackendData();
     glfwGetWindowSize(bd->Window, &w, &h);
     glfwGetFramebufferSize(bd->Window, &display_w, &display_h);
     ImGui_ImplGlfw_NewFrame(w, h, display_w, display_h);
