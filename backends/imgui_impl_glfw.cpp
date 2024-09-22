@@ -825,15 +825,20 @@ static void ImGui_ImplGlfw_UpdateGamepads()
 
 void ImGui_ImplGlfw_NewFrame()
 {
-    ImGuiIO& io = ImGui::GetIO();
-    ImGui_ImplGlfw_Data* bd = ImGui_ImplGlfw_GetBackendData();
-    IM_ASSERT(bd != nullptr && "Context or backend not initialized! Did you call ImGui_ImplGlfw_InitForXXX()?");
-
     // Setup display size (every frame to accommodate for window resizing)
     int w, h;
     int display_w, display_h;
     glfwGetWindowSize(bd->Window, &w, &h);
     glfwGetFramebufferSize(bd->Window, &display_w, &display_h);
+    ImGui_ImplGlfw_NewFrame(w, h, display_w, display_h);
+}
+
+void ImGui_ImplGlfw_NewFrame(int w, int h, int display_w, int display_h)
+{
+    ImGuiIO& io = ImGui::GetIO();
+    ImGui_ImplGlfw_Data* bd = ImGui_ImplGlfw_GetBackendData();
+    IM_ASSERT(bd != nullptr && "Context or backend not initialized! Did you call ImGui_ImplGlfw_InitForXXX()?");
+
     io.DisplaySize = ImVec2((float)w, (float)h);
     if (w > 0 && h > 0)
         io.DisplayFramebufferScale = ImVec2((float)display_w / (float)w, (float)display_h / (float)h);
